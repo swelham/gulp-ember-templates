@@ -6,9 +6,11 @@ Gulp plugin for compiling ember.js templates
 Usage
 ====================
 
-Start by installing ```gulp-ember-templates```
+Start by installing ``` gulp-ember-templates ```
 
-```npm install --save-dev gulp-ember-templates```
+```
+npm install --save-dev gulp-ember-templates
+```
 
 Then you can use the plugin in your ```gulpfile.js```
 
@@ -24,5 +26,5 @@ gulp.task('default', function () {
     .pipe(gulp.dest('./some/other/place'));
 });
 ```
-Note: ```concat``` is not mandatory, however this will produce a single file
+Note: ``` concat ``` is not mandatory, however this will produce a single file
 to reference in your html page.
