@@ -12,7 +12,11 @@
     "templates",
     "handlebars"
   ],
-  "author": "swelham",
+  "author": {
+    "name": "Stuart Welham",
+    "email": "stuart.welham@gmail.com"
+  }
+  ,
   "license": "MIT",
   "dependencies": {
     "through2": "~0.4.1",
