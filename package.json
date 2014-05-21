@@ -16,8 +16,7 @@
   "author": {
     "name": "Stuart Welham",
     "email": "stuart.welham@gmail.com"
-  }
-  ,
+  },
   "license": "MIT",
   "dependencies": {
     "through2": "~0.4.1",
@@ -31,5 +30,10 @@
   },
   "bugs": {
     "url": "https://github.com/swelham/gulp-ember-templates/issues"
+  },
+  "devDependencies": {
+    "should": "~3.3.1",
+    "event-stream": "~3.1.5",
+    "vinyl": "~0.2.3"
   }
 }

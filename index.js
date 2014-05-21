@@ -1,7 +1,6 @@
 var compiler = require('ember-template-compiler');
 var through = require('through2');
 var gutil = require('gulp-util');
-var PliginError = gutil.PliginError;
 
 const PLUGIN_NAME = 'gulp-ember-templates';
 const TEMPLATE_PREFIX = 'Ember.TEMPLATES["application"] = Ember.Handlebars.template(';
@@ -11,6 +10,10 @@ function compile() {
   var stream = through.obj(function (file, enc, cb) {
     if (file.isNull()) {
       return cb();
+    }
+
+    if (file.isStream()) {
+      return cb(new Error(PLUGIN_NAME + ': streaming is not supported'));
     }
 
     var compilerOutput = compiler.precompile(file.contents.toString());
