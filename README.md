@@ -87,3 +87,4 @@ Todo
   * CJS
 * Config
   * Handlebars compiler options - passed to ``` Ember.Handlebars.precompile() ```
+  * File name transform
