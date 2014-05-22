@@ -39,7 +39,12 @@ function compile(options) {
       return cb(new Error(PLUGIN_NAME + ': streaming is not supported'));
     }
 
-    var compilerOutput = compiler.precompile(file.contents.toString());
+    try {
+      var compilerOutput = compiler.precompile(file.contents.toString());
+    }
+    catch (e) {
+      return cb(e);
+    }
 
     if (file.isBuffer()) {
       file.contents = new Buffer(formats[options.type](compilerOutput, options));
