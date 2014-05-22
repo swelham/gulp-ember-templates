@@ -28,3 +28,12 @@ gulp.task('default', function () {
 ```
 Note: ``` concat ``` is not mandatory, however this will produce a single file
 to reference in your html page.
+
+Todo
+====================
+
+* Output formats
+  * AMD
+  * CJS
+* Config
+  * Handlebars compiler options - passed to ``` Ember.Handlebars.precompile() ```
