@@ -57,8 +57,10 @@ function compile(options) {
       options.name = fileName.slice(0, -ext.length);
     }
 
+    var compilerOutput;
+    
     try {
-      var compilerOutput = compiler.precompile(file.contents.toString());
+      compilerOutput = compiler.precompile(file.contents.toString());
     }
     catch (e) {
       return cb(e);
