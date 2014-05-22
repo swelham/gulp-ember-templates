@@ -23,14 +23,15 @@ var emberTemplates = require('gulp-ember-templates');
 
 gulp.task('default', function () {
   gulp.src('./some/place/*.handlebars')
-    .pipe(concat('ember-templates.js'))
     .pipe(emberTemplates())
+    .pipe(concat('ember-templates.js')) // make sure to only do concat after
     .pipe(gulp.dest('./some/other/place'));
 });
 ```
 
 Note: ``` concat ``` is not mandatory, however this will produce a single file
-to reference in your html page.
+to reference in your html page. This must appear after the call to the 
+``` gulp-ember-templates ```
 
 ###AMD Output
 

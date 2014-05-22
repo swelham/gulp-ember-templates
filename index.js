@@ -39,6 +39,8 @@ var formats = {
 };
 
 function compile(options) {
+  var useOptionsName = options && options.name;
+
   options = merge(true, defaultOptions, options);
 
   var stream = through.obj(function (file, enc, cb) {
@@ -53,7 +55,7 @@ function compile(options) {
     var ext = path.extname(file.relative);
     var fileName = file.relative.slice(0, -ext.length);
 
-    if (!options.name) {
+    if (!useOptionsName) {
       options.name = fileName;
     }
 
