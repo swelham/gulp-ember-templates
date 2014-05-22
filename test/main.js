@@ -106,6 +106,7 @@ describe('gulp-ember-templates', function () {
     it('should catch ember-template-compiler error for malformed template', function (done) {
       var stream = plugin();
       var template = new File({
+        path: 'malformed.hbs',
         contents: new Buffer('Malformed {{template')
       });
 

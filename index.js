@@ -13,7 +13,7 @@ var defaultOptions = {
 
 var formats = {
   browser: function (compilerOutput, options) {
-    var prefix = 'Ember.TEMPLATES["application"] = Ember.Handlebars.template(';
+    var prefix = 'Ember.TEMPLATES["' + options.name + '"] = Ember.Handlebars.template(';
     var suffix = ');';
 
     return prefix + compilerOutput.toString() + suffix;
@@ -50,11 +50,11 @@ function compile(options) {
       return cb(new Error(PLUGIN_NAME + ': streaming is not supported'));
     }
 
-    if (options.type === 'amd' && !options.name) {
-      var fileName = file.relative;
-      var ext = path.extname(fileName);
+    var ext = path.extname(file.relative);
+    var fileName = file.relative.slice(0, -ext.length);
 
-      options.name = fileName.slice(0, -ext.length);
+    if (!options.name) {
+      options.name = fileName;
     }
 
     var compilerOutput;
