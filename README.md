@@ -33,7 +33,6 @@ Todo
 ====================
 
 * Output formats
-  * AMD
   * CJS
 * Config
   * Handlebars compiler options - passed to ``` Ember.Handlebars.precompile() ```
