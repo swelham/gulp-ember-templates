@@ -76,7 +76,8 @@ Type ``` String ```,
 Default: the template file name
 
 This options specifies the name to be appended to the
-``` options.moduleName ```
+``` options.moduleName ``` and is only used
+when using the ``` options.type ``` of ``` amd ```
 
 Todo
 ====================
