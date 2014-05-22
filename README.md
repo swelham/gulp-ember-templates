@@ -53,7 +53,7 @@ API Options
 ###options.type
 
 Type: ``` String ```,
-Default: ``` 'browser' ```
+Default: ``` browser ```
 
 This options specifies the output type that will be used. Available types
 * ``` browser ``` - Output plain JavaScript files
