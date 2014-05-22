@@ -2,6 +2,7 @@ var compiler = require('ember-template-compiler');
 var through = require('through2');
 var gutil = require('gulp-util');
 var merge = require('merge');
+var path = require('path');
 
 const PLUGIN_NAME = 'gulp-ember-templates';
 
@@ -18,7 +19,13 @@ var formats = {
     return prefix + compilerOutput.toString() + suffix;
   },
   amd: function (compilerOutput, options) {
-    var prefix = 'define("' + options.moduleName + '", function () { return ';
+    var moduleName = '';
+
+    if (options.moduleName) {
+      moduleName = options.moduleName + '/';
+    }
+
+    var prefix = 'define("' + moduleName + options.name + '", function () { return ';
     var suffix = ' });';
 
     var compilerOutput = formats.browser(compilerOutput, options);
@@ -37,6 +44,13 @@ function compile(options) {
 
     if (file.isStream()) {
       return cb(new Error(PLUGIN_NAME + ': streaming is not supported'));
+    }
+
+    if (options.type === 'amd' && !options.name) {
+      var fileName = file.relative;
+      var ext = path.extname(fileName);
+
+      options.name = fileName.slice(0, -ext.length);
     }
 
     try {
