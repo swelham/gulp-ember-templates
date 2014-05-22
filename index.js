@@ -1,12 +1,35 @@
 var compiler = require('ember-template-compiler');
 var through = require('through2');
 var gutil = require('gulp-util');
+var merge = require('merge');
 
 const PLUGIN_NAME = 'gulp-ember-templates';
-const TEMPLATE_PREFIX = 'Ember.TEMPLATES["application"] = Ember.Handlebars.template(';
-const TEMPLATE_SUFFIX = ');';
 
-function compile() {
+var defaultOptions = {
+  type: 'browser',
+  moduleName: 'templates'
+};
+
+var formats = {
+  browser: function (compilerOutput, options) {
+    var prefix = 'Ember.TEMPLATES["application"] = Ember.Handlebars.template(';
+    var suffix = ');';
+
+    return prefix + compilerOutput.toString() + suffix;
+  },
+  amd: function (compilerOutput, options) {
+    var prefix = 'define("' + options.moduleName + '", function () { return ';
+    var suffix = ' });';
+
+    var compilerOutput = formats.browser(compilerOutput, options);
+
+    return prefix + compilerOutput.toString() + suffix;
+  }
+};
+
+function compile(options) {
+  options = merge(true, defaultOptions, options);
+
   var stream = through.obj(function (file, enc, cb) {
     if (file.isNull()) {
       return cb();
@@ -19,7 +42,7 @@ function compile() {
     var compilerOutput = compiler.precompile(file.contents.toString());
 
     if (file.isBuffer()) {
-      file.contents = new Buffer(TEMPLATE_PREFIX + compilerOutput.toString() + TEMPLATE_SUFFIX);
+      file.contents = new Buffer(formats[options.type](compilerOutput, options));
     }
 
     this.push(file);

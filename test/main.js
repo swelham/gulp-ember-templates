@@ -21,23 +21,56 @@ function readExpectation (fileName) {
   return fs.readFileSync(path.join('test', 'expectations', fileName), 'utf8');
 }
 
+function assertSimpleTemplate (options, expectedContent, done) {
+  var stream = plugin(options);
+  var template = readFixture('simple_fixture.hbs');
+
+  stream.on('data', function (file) {
+    var fileContent = file.contents.toString();
+
+    should(file.isBuffer()).ok;
+    fileContent.should.equal(expectedContent);
+    done();
+  });
+
+  stream.write(template);
+}
+
 describe('gulp-ember-templates', function () {
   describe('plugin()', function () {
 
-    it('should compile a valid ember handlebars template', function (done) {
-      var stream = plugin();
-      var template = readFixture('simple_fixture.hbs');
+    it('should output the complied templates in browser format when no options specified', function (done) {
+      var expectedContent = readExpectation('simple_expectation.js');
 
-      stream.on('data', function (file) {
-        var fileContent = file.contents.toString();
-        var expectedContent = readExpectation('simple_expectation.js');
+      assertSimpleTemplate(undefined, expectedContent, done);
+    });
 
-        should(file.isBuffer()).ok;
-        fileContent.should.equal(expectedContent);
-        done();
-      });
+    it('should output the complied templates in browser format', function (done) {
+      var expectedContent = readExpectation('simple_expectation.js');
+      var options = { 
+        type: 'browser' 
+      };
 
-      stream.write(template);
+      assertSimpleTemplate(options, expectedContent, done);
+    });
+
+    it('should output the complied templates in AMD format', function (done) {
+      var expectedContent = readExpectation('simple_amd_expectation.js');
+      var options = { 
+        type: 'amd' 
+      };
+
+      assertSimpleTemplate(options, expectedContent, done);
+    });
+
+    it('should output the complied templates in AMD format with custom module name', function (done) {
+      var expectedContent = readExpectation('simple_amd_custom_module_name_expectation.js');
+      var options = { 
+        type: 'amd',
+        moduleName: 'custom/name'
+      };
+
+      assertSimpleTemplate(options, expectedContent, done);
     });
 
     it('should throw not supported error for streaming', function (done) {
