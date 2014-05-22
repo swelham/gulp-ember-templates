@@ -83,6 +83,16 @@ describe('gulp-ember-templates', function () {
       assertSimpleTemplate(options, expectedContent, done);
     });
 
+    it('should output the complied templates in AMD format with custom module name ending with /', function (done) {
+      var expectedContent = readExpectation('simple_amd_custom_module_name_expectation.js');
+      var options = { 
+        type: 'amd',
+        moduleName: 'custom/name/'
+      };
+
+      assertSimpleTemplate(options, expectedContent, done);
+    });
+
     it('should output the complied templates in AMD format with custom name', function (done) {
       var expectedContent = readExpectation('simple_amd_custom_name_expectation.js');
       var options = { 

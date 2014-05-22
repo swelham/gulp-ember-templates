@@ -22,7 +22,11 @@ var formats = {
     var moduleName = '';
 
     if (options.moduleName) {
-      moduleName = options.moduleName + '/';
+      moduleName = options.moduleName;
+
+      if (moduleName[moduleName.length - 1] !== '/') {
+        moduleName += '/';
+      }
     }
 
     var prefix = 'define("' + moduleName + options.name + '", function () { return ';
