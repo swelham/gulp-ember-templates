@@ -73,12 +73,39 @@ for the module name
 
 ###options.name
 
-Type ``` String ```,
+Type ``` String|Object ```,
 Default: the template file name
 
-This options specifies the name to be appended to the
-``` options.moduleName ``` and is only used
-when using the ``` options.type ``` of ``` amd ```
+This option allows you to specify a fixed name or a transform to be used for 
+the template name
+
+####usages
+
+```
+var gulp = require('gulp');
+var emberTemplates = require('gulp-ember-templates');
+
+// 'string' usage
+gulp.task('default', function () {
+  gulp.src('./some/place/*.handlebars')
+    .pipe(emberTemplates({
+      name: 'some_static_name'
+    }))
+    .pipe(gulp.dest('./some/other/place'));
+});
+
+// 'object' usage
+gulp.task('default', function () {
+  gulp.src('./some/place/*.handlebars')
+    .pipe(emberTemplates({
+      name: {
+        replace: /_/g, // 'replace' is a regex used to find charaters to replace
+        with: '/' // 'with' is the string to replace the matches with
+      }
+    }))
+    .pipe(gulp.dest('./some/other/place'));
+});
+```
 
 Todo
 ====================

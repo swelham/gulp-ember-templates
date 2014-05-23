@@ -103,6 +103,19 @@ describe('gulp-ember-templates', function () {
       assertSimpleTemplate(options, expectedContent, done);
     });
 
+    it('should output the complied templates in with the regex transformed name', function (done) {
+      var expectedContent = readExpectation('simple_amd_regex_transformed_name_expectation.js');
+      var options = { 
+        type: 'amd',
+        name: {
+          replace: /_/g,
+          with: '/'
+        }
+      };
+
+      assertSimpleTemplate(options, expectedContent, done);
+    });
+
     it('should catch ember-template-compiler error for malformed template', function (done) {
       var stream = plugin();
       var template = new File({
