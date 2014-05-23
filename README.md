@@ -85,7 +85,7 @@ the template name
 var gulp = require('gulp');
 var emberTemplates = require('gulp-ember-templates');
 
-// 'string' usage - this is really only useful when compiling a single templte
+// 'string' usage - this is really only useful when compiling a single template
 gulp.task('default', function () {
   gulp.src('./some/place/*.handlebars')
     .pipe(emberTemplates({
