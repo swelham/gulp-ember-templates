@@ -73,7 +73,7 @@ for the module name
 
 ###options.name
 
-Type ``` String|Object ```,
+Type ``` String|Object|Function ```,
 Default: the template file name
 
 This option allows you to specify a fixed name or a transform to be used for 
@@ -101,6 +101,24 @@ gulp.task('default', function () {
       name: {
         replace: /_/g, // 'replace' is a regex used to find charaters to replace
         with: '/' // 'with' is the string to replace the matches with
+      }
+    }))
+    .pipe(gulp.dest('./some/other/place'));
+});
+
+// 'function' usage
+gulp.task('default', function () {
+  gulp.src('./some/place/*.handlebars')
+    .pipe(emberTemplates({
+      name: function (name, done) {
+        /*
+          DO NOT throw errors from here, pass them in as the first
+          argument to done
+        */
+        
+        // do something with name and pass it into the callback
+        
+        done(null, name);
       }
     }))
     .pipe(gulp.dest('./some/other/place'));
