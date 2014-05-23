@@ -1,13 +1,7 @@
 var test_helpers = require('./test-helpers');
 
 describe('browser output', function () {
-  it('should compile templates in browser format when no options specified', function (done) {
-    var expectedFileName = 'simple_expectation.js';
-
-    test_helpers.assertBrowserTemplate(undefined, expectedFileName, done);
-  });
-
-  it('should compile templates in browser format', function (done) {
+  it('should compile templates', function (done) {
     var expectedFileName = 'simple_expectation.js';
     var options = { 
       type: 'browser' 
@@ -15,6 +9,13 @@ describe('browser output', function () {
 
     test_helpers.assertBrowserTemplate(options, expectedFileName, done);
   });
+  
+  it('should compile templates with no options specified', function (done) {
+    var expectedFileName = 'simple_expectation.js';
+
+    test_helpers.assertBrowserTemplate(undefined, expectedFileName, done);
+  });
+
 
   it('should compile templates with custom name', function (done) {
     var expectedFileName = 'simple_custom_name_expectation.js';
