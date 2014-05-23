@@ -16,7 +16,7 @@ in one the following formats
 
 ###Browser Output
 
-```
+```javascript
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var emberTemplates = require('gulp-ember-templates');
@@ -35,7 +35,7 @@ to reference in your html page. This must appear after the call to the
 
 ###AMD Output
 
-```
+```javascript
 var gulp = require('gulp');
 var emberTemplates = require('gulp-ember-templates');
 
@@ -81,7 +81,7 @@ the template name
 
 ####usages
 
-```
+```javascript
 var gulp = require('gulp');
 var emberTemplates = require('gulp-ember-templates');
 
