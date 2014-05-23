@@ -42,3 +42,7 @@ module.exports.assertBrowserTemplate = function (options, expectedFileName, done
 module.exports.assertAMDTemplate = function (options, expectedFileName, done) {
   assertTemplate('amd', options, expectedFileName, done);
 };
+
+module.exports.assertCJSTemplate = function (options, expectedFileName, done) {
+  assertTemplate('cjs', options, expectedFileName, done);
+};

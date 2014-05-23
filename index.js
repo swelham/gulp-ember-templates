@@ -36,6 +36,13 @@ var formats = {
     var compilerOutput = formats.browser(compilerOutput, fileName, options);
 
     return prefix + compilerOutput.toString() + suffix;
+  },
+  cjs: function (compilerOutput, fileName, options) {
+    var prefix = 'module.exports = ';
+
+    var compilerOutput = formats.browser(compilerOutput, fileName, options);
+
+    return prefix + compilerOutput.toString();
   }
 };
 

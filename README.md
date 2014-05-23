@@ -48,6 +48,21 @@ gulp.task('default', function () {
 });
 ```
 
+###CJS Output
+
+```javascript
+var gulp = require('gulp');
+var emberTemplates = require('gulp-ember-templates');
+
+gulp.task('default', function () {
+  gulp.src('./some/place/*.handlebars')
+    .pipe(emberTemplates({
+      type: 'cjs'
+    }))
+    .pipe(gulp.dest('./some/other/place'));
+});
+```
+
 API Options
 ====================
 
@@ -59,6 +74,7 @@ Default: ``` browser ```
 This options specifies the output type that will be used. Available types
 * ``` browser ``` - Output plain JavaScript files
 * ``` amd ``` - Output AMD modules
+* ``` cjs ``` - Output CJS modules
 
 ###options.moduleName
 
