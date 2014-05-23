@@ -1,6 +1,6 @@
 {
   "name": "gulp-ember-templates",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Gulp plugin for compiling emberjs templates",
   "homepage": "http://github.com/swelham/gulp-ember-templates",
   "main": "index.js",
@@ -23,7 +23,8 @@
     "gulp-util": "~2.2.14",
     "handlebars": "~1.3.0",
     "ember-template-compiler": "~1.6.0-beta.4",
-    "merge": "~1.1.3"
+    "merge": "~1.1.3",
+    "async": "~0.9.0"
   },
   "repository": {
     "type": "git",

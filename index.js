@@ -3,6 +3,7 @@ var through = require('through2');
 var gutil = require('gulp-util');
 var merge = require('merge');
 var path = require('path');
+var async = require('async');
 
 const PLUGIN_NAME = 'gulp-ember-templates';
 
@@ -38,21 +39,44 @@ var formats = {
   }
 };
 
-function transformName (name, options) {
+function transformName (name, options, done) {
   var transformedName = name;
 
-  switch (typeof options.name)
-  {
-    case 'string':
-      transformedName = options.name;
-      break;
-      
-    case 'object':
-      transformedName = name.replace(options.name.replace, options.name.with);
-      break;
+  if (options.name) { 
+    switch (typeof options.name)
+    {
+      case 'string':
+        transformedName = options.name;
+        break;
+        
+      case 'object':
+        transformedName = name.replace(options.name.replace, options.name.with);
+        break;
+
+      case 'function':
+        options.name(name, function (err, newName) {
+           if (err) return done(err);
+
+           transformedName = newName;
+        });
+        break;
+    }
   }
 
-  return transformedName;
+  done(null, transformedName);
+}
+
+function compileTemplate (fileContents, done) {
+    var compilerOutput;
+        
+    try {
+      compilerOutput = compiler.precompile(fileContents);
+    }
+    catch (e) {
+      return done(e);
+    }
+
+    done(null, compilerOutput);
 }
 
 function compile(options) {
@@ -69,26 +93,28 @@ function compile(options) {
 
     var ext = path.extname(file.relative);
     var fileName = file.relative.slice(0, -ext.length);
-
-    if (options.name) {
-      fileName = transformName(fileName, options);
-    }
-
-    var compilerOutput;
+    var self = this;
     
-    try {
-      compilerOutput = compiler.precompile(file.contents.toString());
-    }
-    catch (e) {
-      return cb(e);
-    }
+    async.series([
+      function (done) {
+        transformName(fileName, options, done);
+      },
+      function (done) {
+        compileTemplate(file.contents.toString(), done);
+      }],
+      function (err, results) {
+        if (err) {
+          return cb(err);
+        }
 
-    if (file.isBuffer()) {
-      file.contents = new Buffer(formats[options.type](compilerOutput, fileName, options));
-    }
+        if (file.isBuffer()) {
+          file.contents = new Buffer(formats[options.type](results[1], results[0], options));
+        }
 
-    this.push(file);
-    return cb();
+        self.push(file);
+        return cb();
+      }
+    );
   });
 
   return stream;
