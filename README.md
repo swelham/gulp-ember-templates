@@ -144,7 +144,5 @@ gulp.task('default', function () {
 Todo
 ====================
 
-* Output formats
-  * CJS
 * Config
   * Handlebars compiler options - passed to ``` Ember.Handlebars.precompile() ```
