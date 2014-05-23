@@ -19,7 +19,7 @@ function readExpectation (outputType, fileName) {
   return fs.readFileSync(path.join('test', 'expectations', outputType, fileName), 'utf8');
 }
 
-assertTemplate = function (outputType, options, expectedFileName, done) {
+function assertTemplate (outputType, options, expectedFileName, done) {
   var expectedContent = readExpectation(outputType, expectedFileName);
   var stream = plugin(options);
   var template = readFixture('simple_fixture.hbs');

@@ -30,4 +30,23 @@ describe('exceptions', function () {
 
     stream.write(template);
   });
+
+  it('should handle error raised by options.name function transform', function (done) {
+    var options = { 
+      name: function (name, done) {
+        done(new Error('test error'));
+      }
+    };
+
+    var stream = plugin(options);
+    var template = new File({
+      contents: es.readArray(['transform'])
+    });
+
+    stream.on('error', function (err) {
+      done();
+    });
+
+    stream.write(template);
+  });
 });
