@@ -140,9 +140,3 @@ gulp.task('default', function () {
     .pipe(gulp.dest('./some/other/place'));
 });
 ```
-
-Todo
-====================
-
-* Config
-  * Handlebars compiler options - passed to ``` Ember.Handlebars.precompile() ```
