@@ -40,7 +40,7 @@ var gulp = require('gulp');
 var emberTemplates = require('gulp-ember-templates');
 
 gulp.task('default', function () {
-  gulp.src('./some/place/*.handlebars')
+  gulp.src('./some/place/template.handlebars')
     .pipe(emberTemplates({
       type: 'amd'
     }))
@@ -55,9 +55,24 @@ var gulp = require('gulp');
 var emberTemplates = require('gulp-ember-templates');
 
 gulp.task('default', function () {
-  gulp.src('./some/place/*.handlebars')
+  gulp.src('./some/place/template.handlebars')
     .pipe(emberTemplates({
       type: 'cjs'
+    }))
+    .pipe(gulp.dest('./some/other/place'));
+});
+```
+
+###ES6 Output
+
+```javascript
+var gulp = require('gulp');
+var emberTemplates = require('gulp-ember-templates');
+
+gulp.task('default', function () {
+  gulp.src('./some/place/template.handlebars')
+    .pipe(emberTemplates({
+      type: 'es6'
     }))
     .pipe(gulp.dest('./some/other/place'));
 });
@@ -75,6 +90,7 @@ This options specifies the output type that will be used. Available types
 * ``` browser ``` - Output plain JavaScript files
 * ``` amd ``` - Output AMD modules
 * ``` cjs ``` - Output CJS modules
+* ``` es6 ``` - Output ES6 modules
 
 ###options.moduleName
 

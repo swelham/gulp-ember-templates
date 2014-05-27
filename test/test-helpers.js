@@ -46,3 +46,7 @@ module.exports.assertAMDTemplate = function (options, expectedFileName, done) {
 module.exports.assertCJSTemplate = function (options, expectedFileName, done) {
   assertTemplate('cjs', options, expectedFileName, done);
 };
+
+module.exports.assertES6Template = function (options, expectedFileName, done) {
+  assertTemplate('es6', options, expectedFileName, done);
+};

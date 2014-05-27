@@ -43,6 +43,14 @@ var formats = {
     var compilerOutput = formats.browser(compilerOutput, fileName, options);
 
     return prefix + compilerOutput.toString();
+  },
+  es6: function (compilerOutput, fileName, options) {
+    var prefix = 'export default function () { return ';
+    var suffix = ' };'
+
+    var compilerOutput = formats.browser(compilerOutput, fileName, options);
+
+    return prefix + compilerOutput.toString() + suffix;
   }
 };
 
