@@ -40,7 +40,7 @@ var gulp = require('gulp');
 var emberTemplates = require('gulp-ember-templates');
 
 gulp.task('default', function () {
-  gulp.src('./some/place/template.handlebars')
+  gulp.src('./some/place/*.handlebars')
     .pipe(emberTemplates({
       type: 'amd'
     }))
@@ -55,7 +55,7 @@ var gulp = require('gulp');
 var emberTemplates = require('gulp-ember-templates');
 
 gulp.task('default', function () {
-  gulp.src('./some/place/template.handlebars')
+  gulp.src('./some/place/*.handlebars')
     .pipe(emberTemplates({
       type: 'cjs'
     }))
@@ -70,7 +70,7 @@ var gulp = require('gulp');
 var emberTemplates = require('gulp-ember-templates');
 
 gulp.task('default', function () {
-  gulp.src('./some/place/template.handlebars')
+  gulp.src('./some/place/*.handlebars')
     .pipe(emberTemplates({
       type: 'es6'
     }))
