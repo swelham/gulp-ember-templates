@@ -30,10 +30,10 @@ var formats = {
       }
     }
 
-    var prefix = 'define("' + moduleName + fileName + '", function () { return ';
+    var prefix = 'define(["ember"], function (Ember) {\n';
     var suffix = ' });';
 
-    var compilerOutput = formats.browser(compilerOutput, fileName, options);
+    var compilerOutput = formats.browser(compilerOutput, moduleName + fileName, options);
 
     return prefix + compilerOutput.toString() + suffix;
   },
