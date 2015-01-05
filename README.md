@@ -1,7 +1,9 @@
 gulp-ember-templates
 ====================
 
-Gulp plugin for compiling ember.js templates
+Gulp plugin for compiling ember.js templates.
+
+This plugin will compile templates for use in Ember 1.8 and newer. Use `gulp-ember-templates@0.5.2` to generate templates for Ember 1.7 and older.
 
 Usage
 ====================
