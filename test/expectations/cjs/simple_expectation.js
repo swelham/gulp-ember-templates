@@ -1,9 +1,3 @@
-module.exports = Ember.TEMPLATES["simple_fixture"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  
-
-
+module.exports = Ember.TEMPLATES["simple_fixture"] = Ember.Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   data.buffer.push("A simple template");
-  
-});
+  },"useData":true});
