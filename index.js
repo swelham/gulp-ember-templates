@@ -85,7 +85,7 @@ function compileTemplate (fileContents, done) {
     var compilerOutput;
         
     try {
-      compilerOutput = compiler.precompile(fileContents);
+      compilerOutput = compiler.precompile(fileContents, false);
     }
     catch (e) {
       return done(e);
