@@ -175,8 +175,7 @@ var emberTemplates = require('gulp-ember-templates');
 gulp.task('default', function() {
   gulp.src('./some/place/*.handlebars')
     .pipe(emberTemplates({
-      compiler: require('./bower_components/ember/ember-template-compiler'), // custom compiler object
-      isHTMLBars: true
+      compiler: require('./bower_components/ember/ember-template-compiler')
     }))
     .pipe(gulp.dest('./some/other/place'));
 });
@@ -189,6 +188,8 @@ Default: ``` false ```
 
 This option allows you to determine whether to use the `Ember.HTMLBars` or the `Ember.Handlebars` namespace in the generated template code.
 
+#### usages
+
 ```javascript
 var gulp = require('gulp');
 var emberTemplates = require('gulp-ember-templates');
@@ -197,7 +198,7 @@ gulp.task('default', function() {
   gulp.src('./some/place/*.handlebars')
     .pipe(emberTemplates({
       compiler: require('./bower_components/ember/ember-template-compiler'),
-      isHTMLBars: true                                                       // generates Ember.HTMLBars.template( ... )
+      isHTMLBars: true // Will generate `Ember.HTMLBars.template({ ... })`
     }))
     .pipe(gulp.dest('./some/other/place'));
 });
