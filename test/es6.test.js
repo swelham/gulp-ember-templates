@@ -47,4 +47,29 @@ describe('es6 output', function () {
 
     test_helpers.assertES6Template(options, expectedFileName, done);
   });
+
+  it('should compile templates with custom compiler', function (done) {
+    var expectedFileName = 'simple_custom_compiler_expectation.js';
+    var options = {
+      type: 'es6',
+      compiler: {
+        precompile: function() { return '/* noop */'; }
+      }
+    };
+
+    test_helpers.assertES6Template(options, expectedFileName, done);
+  });
+
+  it('should compile templates with custom compiler (htmlbars flag on)', function (done) {
+    var expectedFileName = 'simple_custom_compiler_and_ishtmlbars_expectation.js';
+    var options = {
+      type: 'es6',
+      isHTMLBars: true,
+      compiler: {
+        precompile: function() { return '/* noop */'; }
+      }
+    };
+
+    test_helpers.assertES6Template(options, expectedFileName, done);
+  });
 });

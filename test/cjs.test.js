@@ -47,4 +47,29 @@ describe('cjs output', function () {
 
     test_helpers.assertCJSTemplate(options, expectedFileName, done);
   });
+
+  it('should compile templates with custom compiler', function (done) {
+    var expectedFileName = 'simple_custom_compiler_expectation.js';
+    var options = {
+      type: 'cjs',
+      compiler: {
+        precompile: function() { return '/* noop */'; }
+      }
+    };
+
+    test_helpers.assertCJSTemplate(options, expectedFileName, done);
+  });
+
+  it('should compile templates with custom compiler (htmlbars flag on)', function (done) {
+    var expectedFileName = 'simple_custom_compiler_and_ishtmlbars_expectation.js';
+    var options = {
+      type: 'cjs',
+      isHTMLBars: true,
+      compiler: {
+        precompile: function() { return '/* noop */'; }
+      }
+    };
+
+    test_helpers.assertCJSTemplate(options, expectedFileName, done);
+  });
 });

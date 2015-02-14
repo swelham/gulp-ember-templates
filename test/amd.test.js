@@ -87,4 +87,29 @@ describe('amd output', function () {
 
     test_helpers.assertAMDTemplate(options, expectedFileName, done);
   });
+
+  it('should compile templates with custom compiler', function (done) {
+    var expectedFileName = 'simple_custom_compiler_expectation.js';
+    var options = {
+      type: 'amd',
+      compiler: {
+        precompile: function() { return '/* noop */'; }
+      }
+    };
+
+    test_helpers.assertAMDTemplate(options, expectedFileName, done);
+  });
+
+  it('should compile templates with custom compiler (htmlbars flag on)', function (done) {
+    var expectedFileName = 'simple_custom_compiler_and_ishtmlbars_expectation.js';
+    var options = {
+      type: 'amd',
+      isHTMLBars: true,
+      compiler: {
+        precompile: function() { return '/* noop */'; }
+      }
+    };
+
+    test_helpers.assertAMDTemplate(options, expectedFileName, done);
+  });
 });
