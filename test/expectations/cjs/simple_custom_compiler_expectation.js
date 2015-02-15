@@ -1,0 +1,1 @@
+module.exports = Ember.TEMPLATES["simple_fixture"] = Ember.Handlebars.template(/* noop */);

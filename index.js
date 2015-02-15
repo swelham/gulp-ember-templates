@@ -9,12 +9,15 @@ const PLUGIN_NAME = 'gulp-ember-templates';
 
 var defaultOptions = {
   type: 'browser',
-  moduleName: 'templates'
+  moduleName: 'templates',
+  compiler: null,
+  isHTMLBars: false
 };
 
 var formats = {
   browser: function (compilerOutput, fileName, options) {
-    var prefix = 'Ember.TEMPLATES["' + fileName + '"] = Ember.Handlebars.template(';
+    var engine = !!options.isHTMLBars ? 'HTMLBars' : 'Handlebars'
+    var prefix = 'Ember.TEMPLATES["' + fileName + '"] = Ember.' + engine + '.template(';
     var suffix = ');';
 
     return prefix + compilerOutput.toString() + suffix;
@@ -57,13 +60,13 @@ var formats = {
 function transformName (name, options, done) {
   var transformedName = name;
 
-  if (options.name) { 
+  if (options.name) {
     switch (typeof options.name)
     {
       case 'string':
         transformedName = options.name;
         break;
-        
+
       case 'object':
         transformedName = name.replace(options.name.replace, options.name.with);
         break;
@@ -83,7 +86,7 @@ function transformName (name, options, done) {
 
 function compileTemplate (fileContents, done) {
     var compilerOutput;
-        
+
     try {
       compilerOutput = compiler.precompile(fileContents, false);
     }
@@ -97,6 +100,11 @@ function compileTemplate (fileContents, done) {
 function compile(options) {
   options = merge(true, defaultOptions, options);
 
+  // Use any user-supplied compiler
+  if (options.compiler) {
+    compiler = options.compiler;
+  }
+
   var stream = through.obj(function (file, enc, cb) {
     if (file.isNull()) {
       return cb();
@@ -109,7 +117,7 @@ function compile(options) {
     var ext = path.extname(file.relative);
     var fileName = file.relative.slice(0, -ext.length);
     var self = this;
-    
+
     async.series([
       function (done) {
         transformName(fileName, options, done);
