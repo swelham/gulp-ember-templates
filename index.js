@@ -58,7 +58,7 @@ var formats = {
 };
 
 function transformName (name, options, done) {
-  var transformedName = name;
+  var transformedName = name.split('/').slice(-1)[0].toString();
 
   if (options.name) {
     switch (typeof options.name)
