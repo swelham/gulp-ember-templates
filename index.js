@@ -11,13 +11,15 @@ var defaultOptions = {
   type: 'browser',
   moduleName: 'templates',
   compiler: null,
+  precompile: true,
   isHTMLBars: false
 };
 
 var formats = {
   browser: function (compilerOutput, fileName, options) {
-    var engine = !!options.isHTMLBars ? 'HTMLBars' : 'Handlebars'
-    var prefix = 'Ember.TEMPLATES["' + fileName + '"] = Ember.' + engine + '.template(';
+    var engine = !!options.isHTMLBars ? 'HTMLBars' : 'Handlebars';
+    var funct = options.precompile ? 'template' : 'compile';
+    var prefix = 'Ember.TEMPLATES["' + fileName + '"] = Ember.' + engine + '.' + funct + '(';
     var suffix = ');';
 
     return prefix + compilerOutput.toString() + suffix;
@@ -84,11 +86,15 @@ function transformName (name, options, done) {
   done(null, transformedName);
 }
 
-function compileTemplate (fileContents, done) {
+function compileTemplate (fileContents, options, done) {
     var compilerOutput;
 
     try {
-      compilerOutput = compiler.precompile(fileContents, false);
+      if (options.precompile) {
+        compilerOutput = compiler.precompile(fileContents, false);
+      } else {
+        compilerOutput = JSON.stringify(fileContents);
+      }
     }
     catch (e) {
       return done(e);
@@ -123,7 +129,7 @@ function compile(options) {
         transformName(fileName, options, done);
       },
       function (done) {
-        compileTemplate(file.contents.toString(), done);
+        compileTemplate(file.contents.toString(), options, done);
       }],
       function (err, results) {
         if (err) {
