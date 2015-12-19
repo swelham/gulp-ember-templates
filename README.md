@@ -203,3 +203,10 @@ gulp.task('default', function() {
     .pipe(gulp.dest('./some/other/place'));
 });
 ```
+
+### options.precompile
+
+Type: ``` Boolean ```,
+Default: ``` true ```
+
+Disable this option to skip template precompilation and instead wrap the template content with Ember.HTMLBars.compile. This will reduce template compilation time during development. Don't disable this option for production build.
