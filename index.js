@@ -58,7 +58,7 @@ var formats = {
 };
 
 function transformName (name, options, done) {
-  var transformedName = name.split('/').slice(-1)[0].toString();
+  var transformedName = name.startsWith('component/') ? name : name.split('/').slice(-1)[0].toString();
 
   if (options.name) {
     switch (typeof options.name)
